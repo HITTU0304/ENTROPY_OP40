@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 20px;
+        }
+
+        .dashboard-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 20px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 550px;
+            position: relative;
+        }
+
+        .dashboard-section h2 {
+            color: #009688;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-section p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #heatmap, #resource-tracker {
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Placeholder styling for interactive elements */
+        .chart {
+            background-color: #e0e0e0;
+            border-radius: 8px;
+        }
+
+        /* Add your own styles for interactive elements here */
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Dashboard</h1>
+
+    <div class="dashboard-container">
+
+        <div class="dashboard-section">
+            <h2>Pandemic Heatmap</h2>
+            <div id="heatmap" class="chart"></div>
+            <p>Visualize the spread of health threats across different regions with our interactive heatmap. This tool allows users to see which areas are most at risk and where interventions are urgently needed.</p>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Resource Allocation Tracker</h2>
+            <div id="resource-tracker" class="chart"></div>
+            <p>Keep track of how resources are being deployed in crisis-affected areas. Our tracker shows where medical supplies, personnel, and funding are being sent, ensuring transparency and accountability in our efforts.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Placeholder code for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example of interactive chart initialization (placeholders)
+            const heatmap = document.getElementById('heatmap');
+            const resourceTracker = document.getElementById('resource-tracker');
+
+            // Example function to initialize a heatmap (replace with real implementation)
+            function initializeHeatmap() {
+                heatmap.innerHTML = '<p>Heatmap chart will be here</p>';
+                // You can use a library like Chart.js or D3.js to render a real heatmap
+            }
+
+            // Example function to initialize resource tracker (replace with real implementation)
+            function initializeResourceTracker() {
+                resourceTracker.innerHTML = '<p>Resource tracker chart will be here</p>';
+                // You can use a library like Chart.js or D3.js to render a real resource tracker
+            }
+
+            // Call the initialization functions
+            initializeHeatmap();
+            initializeResourceTracker();
+        });
+    </script>
+
+</body>
+</html>

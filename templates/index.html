@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Pandemic Panorama</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 100vh;
+                    background: url("/static/images/pexels-minan1398-853168.jpg") no-repeat center center fixed;
+                    background-size: cover;
+                    color: #333333;
+                    text-align: center;
+                }
+        
+                .subtitle {
+                    font-size: 0.8em;
+                    color: #fefefe;
+                    margin-top: 20px;
+                    text-align: center;
+                }
+
+
+        header {
+            /* background-color: rgba(215, 8, 50, 0.9); */
+             /* Slight transparency to see the background image */
+            padding: 15px;
+            text-align: center;
+            color: #000000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+
+        nav {
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        nav button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #ffffffd0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav button:hover {
+            
+            transform: translateY(-2px);
+        }
+
+        .signin-box {
+            width: 320px;
+            padding: 25px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            margin: 40px 20px;
+            position: absolute;
+            left: 20px;
+            top: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .signin-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ffffff;
+            box-sizing: border-box;
+        }
+
+        .signin-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .signin-box button:hover {
+            background-color:  #fcfdff;
+        }
+
+        .vertical-panel {
+            position: fixed;
+            top: 240px;
+            right: 40px;
+            width: 220px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vertical-panel h3 {
+            margin: 0;
+            padding: 15px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .vertical-panel button {
+            margin: 8px 0;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color:  #000000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .vertical-panel button:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .chatbot-icon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #000000; /* White background circle */
+    font-size: 30px; /* Size of the icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4CAF50;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: to add a shadow effect */
+}
+
+.chatbot-icon:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+        .chatbot-box {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 320px;
+            height: 420px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+        }
+        .chatbot-box h4 {
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .box {
+            position: fixed;
+            top: 55%;
+            left: 30px;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            background: url("/static/images/volunteer.jpg") no-repeat center center;
+            background-size: contain; /* Ensures the image fits within the box without being distorted */
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 270px;
+            text-align: center;
+            border: 5px solid #000000; /* Adds a black border */
+        }
+
+        .box h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #000000;
+            margin-bottom: 300px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            border-color: #000000;
+        }
+
+        .box a {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 30px;
+            background-color: #000000;
+            color: rgb(201, 188, 188);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .messages {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 5px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .input-container button {
+            padding: 10px;
+            background-color: #009688;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .input-container button:hover {
+            background-color: #00796b;
+        }
+
+        .user-message, .bot-message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #009688;
+    color: white;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+        .user-message, .bot-message {
+            margin-bottom: 10px;
+        }
+        .user-message {
+            text-align: right;
+            color: #009688;
+            font-weight: bold;
+        }
+        
+        .bot-message {
+            text-align: left;
+            color: #333;
+        }
+
+        /* .box a:hover {
+            background-color:  #a5a9b4;
+            transform: translateY(-2px);
+        } */
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="trans">Pandemic Panorama</h1>
+    <div class="subtitle">"Together, we illuminate the unseen pandemics threatening the world's most vulnerable"</div>
+</header>
+
+<nav>
+    <button onclick="window.location.href='mission.html'">Our Mission</button>
+    <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+    <button onclick="window.location.href='resource.html'">Resource Allocator</button>
+</nav>
+
+
+
+
+
+<!-- Chatbot Icon -->
+<div class="chatbot-icon" onclick="toggleChatbot()">🤖</div>
+
+<!-- Chatbot Box -->
+<div class="chatbot-box" id="chatbot-box">
+    <h4>Chatbot</h4>
+    <div id="chatbot-content" class="messages">Hello! How can I help you?</div>
+    <div class="input-container">
+        <input type="text" id="chatbot-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+<!-- Call to Action Box -->
+<div class="box">
+    <h2>Wanna be a volunteer to serve the society?</h2>
+    <a href="volunteer.html">GO!!</a>
+</div>
+
+<script>
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleChatbot() {
+        const chatbotBox = document.getElementById('chatbot-box');
+        chatbotBox.style.display = chatbotBox.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('chatbot-input');
+        const message = input.value;
+        if (message.trim() === '') return;
+
+        // Display user's message
+        const content = document.getElementById('chatbot-content');
+        content.innerHTML += `<div>User: ${message}</div>`;
+
+        // Send message to server
+        fetch('/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display chatbot's response
+            content.innerHTML += `<div>Chatbot: ${data.response}</div>`;
+            input.value = ''; // Clear the input field
+            content.scrollTop = content.scrollHeight; // Scroll to the bottom
+        });
+    }
+    
+</script>
+
+</body>
+</html>

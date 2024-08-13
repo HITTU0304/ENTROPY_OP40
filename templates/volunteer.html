@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background: url("/static/images/pexels-fauxels-3184396.jpg") no-repeat center center fixed;
+            background-size: 100%;
+        }
+
+        /* Navigation bar styles */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: #000000;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .navbar button {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .navbar button:hover {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        .registration-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 50px; /* Adjusted margin for navbar */
+        }
+
+        .registration-box h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .registration-box input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .registration-box button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000000;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .registration-box button:hover {
+            transform: translateY(-2px);
+        }
+
+        .loading-spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loading-spinner div {
+            width: 30px;
+            height: 30px;
+            margin: 6px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: spin 1.2s infinite ease-in-out;
+        }
+
+        .loading-spinner div:nth-child(2) {
+            animation-delay: -0.6s;
+        }
+
+        @keyframes spin {
+            0% { transform: scale(0); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <button onclick="window.location.href='index.html'">Home</button>
+</div>
+
+<div class="registration-box">
+    <h2>Volunteer Registration</h2>
+    <form id="volunteer-form">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="age" placeholder="Age" required>
+        <input type="text" id="locality" placeholder="Locality" required>
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <button type="button" onclick="registerVolunteer()">Register</button>
+        <div class="loading-spinner">
+            <div></div>
+            <div></div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function registerVolunteer() {
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const locality = document.getElementById('locality').value;
+        const phone = document.getElementById('phone').value;
+
+        if (!name || !age || !locality || !phone) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Show loading spinner
+        document.querySelector('.loading-spinner').style.display = 'block';
+
+        fetch('/register-volunteer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, age, locality, phone }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Thank you for registering!');
+            document.getElementById('volunteer-form').reset();
+            setTimeout(() => {
+                window.location.href = 'mainpage.html';
+            }, 2000);
+        })
+        .catch((error) => {
+            console.error('Fetch error:', error);
+            alert('There was a problem with your registration. Please try again.');
+        })
+        .finally(() => {
+            // Hide loading spinner
+            document.querySelector('.loading-spinner').style.display = 'none';
+        });
+    }
+</script>
+
+</body>
+</html>

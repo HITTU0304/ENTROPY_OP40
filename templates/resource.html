@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Allocation Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #009688;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-start;
+            position: sticky;
+            top: 0;
+        }
+
+        .navbar button {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #009688;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .navbar button:hover {
+            background-color: #00796b;
+            color: #ffffff;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 20px;
+        }
+
+        .dashboard-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 20px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 550px;
+            position: relative;
+        }
+
+        .dashboard-section h2 {
+            color: #009688;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-section p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #resource-tracker {
+            height: 300px;
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 70%;
+            max-width: 550px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-container select, .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container button:hover {
+            background-color: #00796b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <button onclick="window.location.href='index.html'">Home</button>
+    </div>
+
+    <h1>Resource Allocation Tracker</h1>
+
+    <div class="form-container">
+        <h2>Resource Allocation</h2>
+        <label for="Locality">Locality:</label>
+        <input type="text" id="locality" placeholder="" />
+
+        <label for="category">Category:</label>
+        <select id="category">
+            <option value="medical-supplies">Medicines</option>
+            <option value="provision">Provision</option>
+            <option value="clothing">Clothing</option>
+        </select>
+
+        <label for="item-name">Item Name:</label>
+        <input type="text" id="item-name" placeholder="" />
+
+        <label for="Quantity">Quantity Required:</label>
+        <input type="text" id="Quantity" placeholder="" />
+
+        <button onclick="submit()">Submit</button>
+    </div>
+
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('resource-tracker').getContext('2d');
+            
+            // Initial chart setup
+            const chartData = {
+                labels: ['Medical Supplies', 'Personnel', 'Funding'],
+                datasets: [{
+                    label: 'Allocated Resources',
+                    data: [350, 200, 450], // Sample values
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const chartOptions = {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat().format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Amount'
+                        }
+                    }
+                }
+            };
+
+            const resourceTrackerChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: chartOptions
+            });
+
+            // Update item names based on selected category
+            const categorySelect = document.getElementById('category');
+            const itemNameSelect = document.getElementById('item-name');
+
+            const items = {
+                'medical-supplies': ['PPE Kits', 'Vaccines', 'Medications'],
+                'personnel': ['Doctors', 'Nurses', 'Technicians'],
+                'funding': ['Grants', 'Donations', 'Government Aid']
+            };
+
+            categorySelect.addEventListener('change', function() {
+                const selectedCategory = categorySelect.value;
+                const options = items[selectedCategory].map(item => `<option value="${item}">${item}</option>`).join('');
+                itemNameSelect.innerHTML = options;
+            });
+
+            // Initial item load
+            categorySelect.dispatchEvent(new Event('change'));
+
+            // Function to update the chart based on form inputs
+            window.updateChart = function() {
+                const category = categorySelect.value;
+                const item = itemNameSelect.value;
+
+                // Update the chart data as needed based on the selected category and item
+                // This is just a placeholder logic; update with real data as required
+                const updatedData = {
+                    'medical-supplies': [400, 250, 300],
+                    'personnel': [150, 180, 220],
+                    'funding': [500, 350, 450]
+                };
+
+                resourceTrackerChart.data.datasets[0].data = updatedData[category];
+                resourceTrackerChart.update();
+            };
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Trends Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .home-button {
+            background-color: #13a318; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .home-button:hover {
+            transform: translateY(-2px);
+            /* Darker Green */
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: calc(100% - 18px); /* Adjust width to fit padding and border */
+        }
+        input[type="submit"] {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049; /* Darker Green */
+        }
+        .graph-container {
+            margin-top: 20px;
+        }
+        hr {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="home-button">Home</a>
+        <h1>Google Trends Dashboard</h1>
+        <form method="POST" action="{{ url_for('dashboard_view') }}">
+            <label for="keyword">Enter Keyword:</label>
+            <input type="text" id="keyword" name="keyword" required>
+            <input type="submit" value="Submit">
+        </form>
+        <hr>
+        {% if graph_html %}
+            <div class="graph-container">
+                <h2>Bar Graph of Selected Keyword Trends</h2>
+                {{ graph_html|safe }}
+            </div>
+        {% endif %}
+        {% if slider_chart_html %}
+            <div class="graph-container">
+                <h2>Interactive Timeline</h2>
+                {{ slider_chart_html|safe }}
+            </div>
+        {% endif %}
+        {% if comparison_html %}
+            <div class="graph-container">
+                <h2>Comparison of Keywords</h2>
+                {{ comparison_html|safe }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

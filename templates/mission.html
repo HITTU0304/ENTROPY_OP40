@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Mission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            margin-left: -0px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #020101;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .nav-content h1 {
+            text-align: center;
+            margin: 0;
+            font-size: 24px;
+            flex: 1; /* Allows the title to take up available space */
+            color: white; /* Changed the color to white */
+            font-family: 'Times New Roman', serif; /* Changed the font to Times New Roman */
+        }
+
+        .home-button {
+            position: absolute;
+            left: -25px;
+            margin-left: -75px; /* Adjust as needed to position the button */
+        }
+
+        .home-button button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: white;
+            color: #000000;
+            border: none;
+            border-radius: 4px;
+        }
+
+        header {
+            background-color: #d81546;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            margin-top: 80px; /* Adjust this margin to prevent overlap with nav */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .content {
+            font-size: large;
+            font-style: italic;
+            text-align: justify;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        footer {
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-content">
+        <div class="home-button">
+            <button onclick="window.location.href='index.html'">Home</button>
+            <!-- <a href="{{ url_for('home') }}" class="home-button">Home</a> -->
+        </div>
+        <h1>Our Mission</h1>
+    </div>
+</nav>
+
+<div class="content">
+    <p>
+         Our mission is to advance mental health awareness and foster community engagement by leveraging comprehensive data analysis and promoting youth volunteering. We analyze mental health trends and challenges through detailed data collection and analytics, offering crucial insights that drive better support and intervention strategies. By encouraging youth to actively participate in volunteering, we not only highlight their positive impact but also provide numerous opportunities for engagement, showcasing success stories and the tangible benefits of their contributions. Our platform features interactive dashboards that display key mental health metrics, such as prevalence rates and risk factors, alongside trends and patterns. Additionally, we track youth volunteering participation rates and assess their impact, equipping individuals and communities with the knowledge needed to make informed decisions and effectively address mental health and social needs.
+         We analyze mental health trends and challenges through detailed data collection and and analytics, offering crucial insights that drive better support and intervention strategies.
+        By encouraging youth to actively participate in volunteering, we not only highlight their positive impact but also provide numerous opportunities for engagement, showcasing success stories and the tangible benefits of their contributions
+         Our platform features interactive dashboards that display key mental health metrics, such as prevalence rates and risk factors, alongside trends and patterns.
+        Additionally, we track youth volunteering participation rates and assess their impact, equipping individuals and communities with the knowledge needed to make informed decisions and effectively address mental health and social needs.
+
+    </p>
+</div>
+
+<footer>
+    <p>&copy; 2024 Your Company Name</p>
+</footer>
+
+</body>
+</html>
